@@ -11,7 +11,7 @@ mkdir -p ~/.znc/configs
 ZNC_SALT="$(dd if=/dev/urandom bs=16c count=1 | md5sum | awk '{print $1}')"
 ZNC_HASH="sha256#$(echo -n ${ZNC_PASS}${ZNC_SALT} | sha256sum | awk '{print $1}')#$ZNC_SALT#"
 cat >~/.znc/configs/znc.conf <<EOF
-Listen     = $PORT_IRC
+Listen     = 6667
 LoadModule = lastseen
 
 <User $ZNC_USER>
