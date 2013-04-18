@@ -1,5 +1,4 @@
 #!/bin/bash
-. ~/profile
 [ "${ZNC_USER:=$SERVICE_ZNC_USER}" ] || {
     echo "ZNC_USER not set. Aborting."
     exit 1
@@ -41,4 +40,3 @@ LoadModule = lastseen
         </Chan>
 </User>
 EOF
-exec znc -f
