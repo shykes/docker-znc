@@ -1,16 +1,19 @@
 #!/bin/bash
-[ "${ZNC_USER:=$SERVICE_ZNC_USER}" ] || {
-    echo "ZNC_USER not set. Aborting."
-    exit 1
-}
-[ "${ZNC_PASS:=$SERVICE_ZNC_PASS}" ] || {
-    echo "ZNC_PASS not set. Aborting."
-    exit 1
-}
-mkdir -p ~/.znc/configs
+
+if [ $# -lt 2 ]; then
+	echo "Usage: $0 ZNC_USER ZNC_PASS"
+	exit 1
+fi
+
+ZNC_USER=$1
+# FIXME: password will be visible in process list. Read it from stdin?
+ZNC_PASS=$2
+
+mkdir -p .znc/configs
+# FIXME: call znc --makepass instead of generating the has manually
 ZNC_SALT="$(dd if=/dev/urandom bs=16c count=1 | md5sum | awk '{print $1}')"
 ZNC_HASH="sha256#$(echo -n ${ZNC_PASS}${ZNC_SALT} | sha256sum | awk '{print $1}')#$ZNC_SALT#"
-cat >~/.znc/configs/znc.conf <<EOF
+cat >.znc/configs/znc.conf <<EOF
 Listen     = 6667
 LoadModule = lastseen
 
@@ -40,3 +43,4 @@ LoadModule = lastseen
         </Chan>
 </User>
 EOF
+exec znc -f
