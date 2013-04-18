@@ -1,3 +1,4 @@
+# VERSION	0.1
 # To build:
 # wget https://raw.github.com/dotcloud/docker/v0.1.6/contrib/docker-build/docker-build && python docker-build < Layers
 from	ubuntu:12.10
