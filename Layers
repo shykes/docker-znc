@@ -1,9 +1,0 @@
-# VERSION	0.1
-# To build:
-# wget https://raw.github.com/dotcloud/docker/v0.1.6/contrib/docker-build/docker-build && python docker-build < Layers
-from	ubuntu:12.10
-run	apt-get update
-run	apt-get install -q -y znc
-copy	zncrun	/usr/local/bin/zncrun
-run	mkdir /.znc && chown irc: /.znc
-# Run with: -p 6667 -u irc
