@@ -10,5 +10,6 @@ run	apt-get install -q -y znc
 add	. /src
 run	cd /src && chmod +x zncrun && cp zncrun /usr/local/bin/
 run	mkdir /.znc && chown irc: /.znc
+user irc
 expose	6667
 cmd	["zncrun"]
